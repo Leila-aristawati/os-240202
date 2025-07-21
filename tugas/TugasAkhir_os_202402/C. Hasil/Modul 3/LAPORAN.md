@@ -39,9 +39,9 @@ Program uji yang digunakan:
 ## 📷 Hasil Uji
 
 ### 📸 Screenshot:
-![cowtest.png](./screenshots/cowtest.png
+![hasil cowtest.png](./screenshoots/cowtest.png
 ### 📸 Screenshot:
-![shmtest.png](./screenshots/shmtest.png
+![hasil shmtest.png](./screenshoots/shmtest.png
 
 ### 📍 Contoh Output `cowtest`:
 
