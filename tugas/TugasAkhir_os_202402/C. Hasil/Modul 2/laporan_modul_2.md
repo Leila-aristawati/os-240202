@@ -2,10 +2,10 @@
 
 **Mata Kuliah**: Sistem Operasi
 **Semester**: Genap / Tahun Ajaran 2024–2025
-**Nama**: `<Nama Lengkap>`
-**NIM**: `<Nomor Induk Mahasiswa>`
+**Nama**: `Leila Aristawati`
+**NIM**: `240202901`
 **Modul yang Dikerjakan**:
-`(Contoh: Modul 1 – System Call dan Instrumentasi Kernel)`
+`Modul 2 – Penjadwalan CPU Lanjutan (Priority Scheduling Non-Preemptive `
 
 ---
 
@@ -13,60 +13,59 @@
 
 Tuliskan deskripsi singkat dari modul yang Anda kerjakan. Misalnya:
 
-* **Modul 1 – System Call dan Instrumentasi Kernel**:
-  Menambahkan dua system call baru, yaitu `getpinfo()` untuk melihat proses yang aktif dan `getReadCount()` untuk menghitung jumlah pemanggilan `read()` sejak boot.
+* **Modul 2 – Penjadwalan CPU Lanjutan (Priority Scheduling Non-Preemptive**:
+  Modul 2 – Penjadwalan CPU Lanjutan (Priority Scheduling Non-Preemptive): Modul ini bertujuan untuk memodifikasi algoritma penjadwalan proses default xv6 (Round Robin) menjadi Non-Preemptive Priority Scheduling. Perubahan utama meliputi:
+
+1. Menambahkan field priority di setiap proses
+
+2. Menambahkan system call set_priority(int)
+
+3. Memodifikasi fungsi scheduler() untuk mengeksekusi proses RUNNABLE dengan prioritas tertinggi (nilai numerik paling kecil)
 ---
 
 ## 🛠️ Rincian Implementasi
 
 Tuliskan secara ringkas namun jelas apa yang Anda lakukan:
+Modifikasi yang Dilakukan: 
+A. Tambahan Field priority di struct proc
+File: proc.h
+B. Scheduler Menggunakan Prioritas
+File: proc.c
+Modifikasi fungsi scheduler() agar memilih proses RUNNABLE dengan prioritas tertinggi (nilai paling kecil)
+C. Menambahkan Syscall setpriority()
+File: proc.c
+D. Program Uji ptest.c
+File: ptest.c
+E. Hasil yang Diharapkan
+Saat menjalankan ptest, output-nya harus menunjukkan proses dengan prioritas lebih tinggi selesai lebih dulu.
 
-### Contoh untuk Modul 1:
-
-* Menambahkan dua system call baru di file `sysproc.c` dan `syscall.c`
-* Mengedit `user.h`, `usys.S`, dan `syscall.h` untuk mendaftarkan syscall
-* Menambahkan struktur `struct pinfo` di `proc.h`
-* Menambahkan counter `readcount` di kernel
-* Membuat dua program uji: `ptest.c` dan `rtest.c`
+`
 ---
 
 ## ✅ Uji Fungsionalitas
 
-Tuliskan program uji apa saja yang Anda gunakan, misalnya:
+Program uji yang digunakan:
 
-* `ptest`: untuk menguji `getpinfo()`
-* `rtest`: untuk menguji `getReadCount()`
-* `cowtest`: untuk menguji fork dengan Copy-on-Write
-* `shmtest`: untuk menguji `shmget()` dan `shmrelease()`
-* `chmodtest`: untuk memastikan file `read-only` tidak bisa ditulis
-* `audit`: untuk melihat isi log system call (jika dijalankan oleh PID 1)
+ptest: menguji apakah proses dengan prioritas lebih tinggi dijalankan lebih dulu
 
+Proses anak 1: set_priority(90)
+
+Proses anak 2: set_priority(10)
+
+Output menunjukkan urutan eksekusi berdasarkan prioritas
 ---
 
 ## 📷 Hasil Uji
 
 Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
 
-### 📍 Contoh Output `cowtest`:
+### 📍 Contoh Output `ptest`:
 
 ```
-Child sees: Y
-Parent sees: X
+Child 2 selesai
+Child 1 selesai
+Parent selesai
 ```
-
-### 📍 Contoh Output `shmtest`:
-
-```
-Child reads: A
-Parent reads: B
-```
-
-### 📍 Contoh Output `chmodtest`:
-
-```
-Write blocked as expected
-```
-
 Jika ada screenshot:
 
 ```
@@ -77,12 +76,24 @@ Jika ada screenshot:
 
 ## ⚠️ Kendala yang Dihadapi
 
-Tuliskan kendala (jika ada), misalnya:
-
-* Salah implementasi `page fault` menyebabkan panic
-* Salah memetakan alamat shared memory ke USERTOP
-* Proses biasa bisa akses audit log (belum ada validasi PID)
-
+1. Variabel proc Tidak Terdefinisi
+Masalah: Saat menambahkan proc = p; di dalam scheduler(), muncul error:
+error: ‘proc’ undeclared (first use in this function)
+Penyebab: Variabel global proc tidak tersedia secara langsung di scheduler(), karena dalam desain xv6 proc adalah bagian dari struct cpu.
+2. Lupa Mengatur Prioritas Awal Proses
+Masalah: Proses default tetap menggunakan prioritas acak atau nol.
+3. Panic di Fungsi sleep()
+Masalah: Kernel panic muncul dengan pesan:
+panic: sleep
+Penyebab: Fungsi sleep() dipanggil tanpa memastikan proc sudah terdefinisi, atau dipanggil sebelum proses siap.
+4. Urutan Proses Tidak Sesuai Harapan
+Masalah: Meski sudah set priority, proses tetap tidak dijalankan sesuai urutan prioritas.
+Penyebab: Fungsi scheduler() belum benar-benar memilih proses berdasarkan prioritas.
+5. Kesulitan Verifikasi Hasil
+Masalah: Output hanya menampilkan Child selesai, sulit membuktikan bahwa scheduler memang menjalankan proses sesuai prioritas.
+6. Build Error setelah Menambah Syscall
+Masalah: Setelah menambah setpriority(), muncul error undefined reference to 'setpriority'.
+Penyebab: Lupa mendaftarkan syscall di beberapa tempat.
 ---
 
 ## 📚 Referensi
