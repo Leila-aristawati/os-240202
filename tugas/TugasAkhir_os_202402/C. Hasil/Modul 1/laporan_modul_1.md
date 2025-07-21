@@ -2,10 +2,10 @@
 
 **Mata Kuliah**: Sistem Operasi
 **Semester**: Genap / Tahun Ajaran 2024–2025
-**Nama**: `<Nama Lengkap>`
-**NIM**: `<Nomor Induk Mahasiswa>`
+**Nama**: `<Leila Aristawati>`
+**NIM**: `<240202901>`
 **Modul yang Dikerjakan**:
-`(Contoh: Modul 1 – System Call dan Instrumentasi Kernel)`
+`(Modul 1 – System Call dan Instrumentasi Kernel)`
 
 ---
 
@@ -34,12 +34,8 @@ Tuliskan secara ringkas namun jelas apa yang Anda lakukan:
 
 Tuliskan program uji apa saja yang Anda gunakan, misalnya:
 
-* `ptest`: untuk menguji `getpinfo()`
-* `rtest`: untuk menguji `getReadCount()`
-* `cowtest`: untuk menguji fork dengan Copy-on-Write
-* `shmtest`: untuk menguji `shmget()` dan `shmrelease()`
-* `chmodtest`: untuk memastikan file `read-only` tidak bisa ditulis
-* `audit`: untuk melihat isi log system call (jika dijalankan oleh PID 1)
+1. Program ptest – Menguji getpinfo() Program ini memanggil getpinfo() dan mencetak daftar proses aktif di sistem. Data yang ditampilkan meliputi PID, ukuran memori, dan nama proses. Hasil pengujian menunjukkan informasi proses berhasil ditampilkan dengan benar.
+2. Program rtest – Menguji getreadcount() Program ini memanggil getreadcount() sebelum dan sesudah fungsi read() dijalankan. Tujuannya untuk memverifikasi apakah counter readcount meningkat sesuai jumlah pemanggilan read(). Hasilnya, nilai readcount bertambah 1 setelah pemanggilan read(), menandakan counter bekerja dengan benar
 
 ---
 
@@ -47,41 +43,44 @@ Tuliskan program uji apa saja yang Anda gunakan, misalnya:
 
 Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
 
-### 📍 Contoh Output `cowtest`:
+### 📍 Contoh Output `ptest`:
 
 ```
-Child sees: Y
-Parent sees: X
+PID     MEM      NAME
+1       12288    init
+2       16384    sh
+3       12288    ptest
 ```
 
-### 📍 Contoh Output `shmtest`:
+### 📍 Contoh Output `rtest`:
 
 ```
-Child reads: A
-Parent reads: B
+Read Count Sebelum: 12
+hello
+Read Count Setelah: 13
 ```
-
-### 📍 Contoh Output `chmodtest`:
-
-```
-Write blocked as expected
-```
-
-Jika ada screenshot:
-
-```
-![hasil cowtest](./screenshots/cowtest_output.png)
-```
-
----
 
 ## ⚠️ Kendala yang Dihadapi
 
 Tuliskan kendala (jika ada), misalnya:
 
-* Salah implementasi `page fault` menyebabkan panic
-* Salah memetakan alamat shared memory ke USERTOP
-* Proses biasa bisa akses audit log (belum ada validasi PID)
+1. Redefinisi Fungsi main()
+Masalah: Terjadi error redefinition of 'main' saat kompilasi.
+Penyebab: Dua program (getpinfo_test dan priority_test) diletakkan dalam satu file .c (ptest.c), masing-masing punya main().
+getpinfo_test.c
+priority_test.c
+2. Duplikasi Nama Program di Makefile
+Masalah: Nama _ptest muncul dua kali di variabel UPROGS pada Makefile.
+Dampak: Berpotensi menyebabkan konflik atau hasil build yang tidak konsisten.
+3. Penambahan Program ke Makefile Tidak Lengkap
+Masalah: Program getpinfo_test dan priority_test tidak otomatis ter-compile.
+Penyebab: Belum ditambahkan ke daftar UPROGS pada Makefile.
+4. Kebingungan Letak Penambahan Rule di Makefile
+Masalah: Bingung menambahkan:
+getpinfo_test: getpinfo_test.c
+	$(CC) getpinfo_test.c -o getpinfo_test
+5. Potensi Error Nama File Salah atau Tidak Ditemukan
+Masalah Potensial: Bila file getpinfo_test.c atau priority_test.c tidak berada di lokasi yang benar atau salah penamaan, akan muncul error file not found.
 
 ---
 
