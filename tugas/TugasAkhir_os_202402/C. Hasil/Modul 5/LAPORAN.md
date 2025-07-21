@@ -42,7 +42,7 @@ audit: untuk menguji system call get_audit_log() dan memastikan hanya bisa diaks
 ## 📷 Hasil Uji
 
 ### 📸 Screenshot:
-![hasil audit log_output.png](./screenshoots/audit log_output.png)
+![hasil audit_m5_output.png](./screenshoots/audit_m5_output.png)
 ### 📍 Contoh Output  `audit` saat dijalankan sebagai PID 1:
 
 ```
