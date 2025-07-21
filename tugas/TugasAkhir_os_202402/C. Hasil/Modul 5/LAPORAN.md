@@ -41,7 +41,8 @@ audit: untuk menguji system call get_audit_log() dan memastikan hanya bisa diaks
 
 ## 📷 Hasil Uji
 
-Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
+### 📸 Screenshot:
+![audit log.png](./screenshots/audit log.png
 
 ### 📍 Contoh Output  `audit` saat dijalankan sebagai PID 1:
 
