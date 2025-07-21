@@ -38,7 +38,10 @@ Program uji yang digunakan:
 
 ## 📷 Hasil Uji
 
-Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
+### 📸 Screenshot:
+![cowtest.png](./screenshots/cowtest.png
+### 📸 Screenshot:
+![shmtest.png](./screenshots/shmtest.png
 
 ### 📍 Contoh Output `cowtest`:
 
