@@ -2,10 +2,10 @@
 
 **Mata Kuliah**: Sistem Operasi
 **Semester**: Genap / Tahun Ajaran 2024–2025
-**Nama**: `<Nama Lengkap>`
-**NIM**: `<Nomor Induk Mahasiswa>`
+**Nama**: `Leila Aristawati`
+**NIM**: `240202901`
 **Modul yang Dikerjakan**:
-`(Contoh: Modul 1 – System Call dan Instrumentasi Kernel)`
+`Modul 4 - Subsistem Kernel Alternatif (xv6-public)`
 
 ---
 
@@ -13,33 +13,40 @@
 
 Tuliskan deskripsi singkat dari modul yang Anda kerjakan. Misalnya:
 
-* **Modul 1 – System Call dan Instrumentasi Kernel**:
-  Menambahkan dua system call baru, yaitu `getpinfo()` untuk melihat proses yang aktif dan `getReadCount()` untuk menghitung jumlah pemanggilan `read()` sejak boot.
+* **Modul 4 - Subsistem Kernel Alternatif**:
+ Modul ini mencakup pengembangan dua fitur subsistem kernel pada xv6:
+1. System call chmod(path, mode) untuk mengatur mode file (read-only atau read-write) secara sederhana.
+2. Pseudo-device /dev/random yang menghasilkan byte acak ketika dibaca, menyerupai fungsionalitas /dev/random di sistem UNIX/Linux.
 ---
 
 ## 🛠️ Rincian Implementasi
 
-Tuliskan secara ringkas namun jelas apa yang Anda lakukan:
+Menambahkan field mode pada struct inode di fs.h (bersifat volatile, hanya di memori).
 
-### Contoh untuk Modul 1:
+Menambahkan syscall chmod() di:
 
-* Menambahkan dua system call baru di file `sysproc.c` dan `syscall.c`
-* Mengedit `user.h`, `usys.S`, dan `syscall.h` untuk mendaftarkan syscall
-* Menambahkan struktur `struct pinfo` di `proc.h`
-* Menambahkan counter `readcount` di kernel
-* Membuat dua program uji: `ptest.c` dan `rtest.c`
----
+sysfile.c (sys_chmod)
+
+syscall.h, syscall.c, user.h, usys.S
+
+Modifikasi filewrite() di file.c untuk mencegah penulisan ke file dengan mode read-only.
+
+Program uji: chmodtest.c
+
+Device /dev/random
+
+Menambahkan file random.c sebagai driver sederhana penghasil angka acak.
+
+Registrasi device di file.c melalui devsw[] dengan major number 3.
+
 
 ## ✅ Uji Fungsionalitas
 
-Tuliskan program uji apa saja yang Anda gunakan, misalnya:
+Program uji yang digunakan:
 
-* `ptest`: untuk menguji `getpinfo()`
-* `rtest`: untuk menguji `getReadCount()`
-* `cowtest`: untuk menguji fork dengan Copy-on-Write
-* `shmtest`: untuk menguji `shmget()` dan `shmrelease()`
-* `chmodtest`: untuk memastikan file `read-only` tidak bisa ditulis
-* `audit`: untuk melihat isi log system call (jika dijalankan oleh PID 1)
+1. chmodtest: menguji sistem file agar menolak penulisan ke file read-only
+
+2. randomtest: membaca 8 byte acak dari /dev/random
 
 ---
 
@@ -47,24 +54,16 @@ Tuliskan program uji apa saja yang Anda gunakan, misalnya:
 
 Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
 
-### 📍 Contoh Output `cowtest`:
-
-```
-Child sees: Y
-Parent sees: X
-```
-
-### 📍 Contoh Output `shmtest`:
-
-```
-Child reads: A
-Parent reads: B
-```
-
 ### 📍 Contoh Output `chmodtest`:
 
 ```
 Write blocked as expected
+```
+
+### 📍 Contoh Output `randomtest`:
+
+```
+159 114 41 116 67 198 109 232
 ```
 
 Jika ada screenshot:
@@ -77,11 +76,18 @@ Jika ada screenshot:
 
 ## ⚠️ Kendala yang Dihadapi
 
-Tuliskan kendala (jika ada), misalnya:
+Kendala yang Dihadapi
 
-* Salah implementasi `page fault` menyebabkan panic
-* Salah memetakan alamat shared memory ke USERTOP
-* Proses biasa bisa akses audit log (belum ada validasi PID)
+1. Error Undefined Reference
+Terjadi saat kompilasi karena beberapa fungsi seperti setupkvm, walkpgdir, dan mappages tidak dikenali. Penyebabnya karena belum dideklarasikan di defs.h atau file sumber tidak disertakan dalam build.
+2. Linker Error karena Fungsi Terpisah
+Fungsi-fungsi baru seperti cowuvm dan refcount awalnya dibuat di file terpisah tanpa update di Makefile, sehingga tidak terlink dengan benar.
+3. Kesalahan Perhitungan Alamat Fisik
+Pada pa2refindex, terjadi panic jika alamat fisik tidak valid atau di luar batas PHYSTOP.
+4. Modifikasi PTE Tidak Konsisten
+Saat men-set flag PTE_COW, perlu memastikan bahwa entri tidak rusak dan tetap bisa diakses oleh proses yang membagikan halaman tersebut.
+5. Build Tidak Bersih
+Perubahan kode tidak selalu tercermin karena tidak menjalankan make clean sebelum make, sehingga menggunakan object file lama.
 
 ---
 
