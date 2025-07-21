@@ -42,7 +42,7 @@ Tuliskan program uji apa saja yang Anda gunakan, misalnya:
 ## 📷 Hasil Uji
 
 ### 📸 screenshoots:
-![ptest dan rtest.png](./screenshoots/ptest_rtest_hello-output.png
+![hasil ptest_rtest_hello.png](./screenshoots/ptest_rtest_hello.png)
 
 ### 📍 Contoh Output `ptest`:
 
