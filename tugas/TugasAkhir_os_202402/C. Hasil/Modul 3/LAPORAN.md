@@ -38,10 +38,10 @@ Program uji yang digunakan:
 
 ## 📷 Hasil Uji
 
-### 📸 screenshoots:
-![hasil cowtest.png](./screenshoots/cowtest.png
-### 📸 screenshoots:
-![hasil shmtest.png](./screenshoots/shmtest.png
+### 📸 Screenshot:
+![hasil cowtest_output.png](./screenshoots/cowtest_output.png)
+### 📸 Screenshot:
+![hasil shmtest_output.png](./screenshoots/shmtest_output.png)
 
 ### 📍 Contoh Output `cowtest`:
 
