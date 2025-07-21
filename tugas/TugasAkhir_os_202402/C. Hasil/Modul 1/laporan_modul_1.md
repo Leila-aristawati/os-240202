@@ -2,8 +2,8 @@
 
 **Mata Kuliah**: Sistem Operasi
 **Semester**: Genap / Tahun Ajaran 2024–2025
-**Nama**: `<Leila Aristawati>`
-**NIM**: `<240202901>`
+**Nama**: `Leila Aristawati`
+**NIM**: `240202901`
 **Modul yang Dikerjakan**:
 `(Modul 1 – System Call dan Instrumentasi Kernel)`
 
