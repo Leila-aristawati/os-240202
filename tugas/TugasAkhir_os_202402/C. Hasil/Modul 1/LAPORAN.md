@@ -41,7 +41,8 @@ Tuliskan program uji apa saja yang Anda gunakan, misalnya:
 
 ## 📷 Hasil Uji
 
-Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
+### 📸 Screenshot:
+![hasil ptest dan rtest](./screenshots/ptest_rtest_hello-outout.png)
 
 ### 📍 Contoh Output `ptest`:
 
