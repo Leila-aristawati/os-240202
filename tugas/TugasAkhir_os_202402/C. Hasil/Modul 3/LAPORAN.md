@@ -59,7 +59,6 @@ Parent reads: B
 Jika ada screenshot:
 
 ```
-![hasil cowtest](./screenshots/cowtest_output.png)
 ```
 
 ---
