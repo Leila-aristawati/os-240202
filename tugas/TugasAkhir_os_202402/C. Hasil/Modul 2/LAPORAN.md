@@ -58,7 +58,7 @@ Output menunjukkan urutan eksekusi berdasarkan prioritas
 ## 📷 Hasil Uji
 
 ### 📸 Screenshot:
-![ptest_m2-output](./screenshots/ptest_m2-output.png)
+![hasil ptest_m2_output.png](./screenshoots/ptest_m2_output.png)
 
 ### 📍 Contoh Output `ptest`:
 
