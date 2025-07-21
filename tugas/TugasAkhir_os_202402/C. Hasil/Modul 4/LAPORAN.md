@@ -53,9 +53,9 @@ Program uji yang digunakan:
 ## 📷 Hasil Uji
 
 ### 📸 Screenshot:
-![chmodtest.png](./screenshots/chmodtest.png
+![hasil chmodtest_output.png](./screenshoots/chmodtest_output.png)
 ### 📸 Screenshot:
-![randomtest.png](./screenshots/randomtest.png
+![hasil randomtest_output.png](./screenshoots/randomtest_output.png)
 
 ### 📍 Contoh Output `chmodtest`:
 
