@@ -57,7 +57,8 @@ Output menunjukkan urutan eksekusi berdasarkan prioritas
 
 ## 📷 Hasil Uji
 
-Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
+### 📸 Screenshot:
+![ptest_m2-output](./screenshots/ptest_m2-output.png)
 
 ### 📍 Contoh Output `ptest`:
 
