@@ -23,9 +23,9 @@
 
 3. Menambahkan system call baru get_audit_log():
 
-         •Implementasi: sysproc.c
+   •Implementasi: sysproc.c
 
-        •Deklarasi: user.h, syscall.h, defs.h, usys.S
+   •Deklarasi: user.h, syscall.h, defs.h, usys.S
 
 4. Menambahkan validasi agar hanya proses PID 1 yang bisa mengakses audit log
 
@@ -42,7 +42,7 @@ audit: untuk menguji system call get_audit_log() dan memastikan hanya bisa diaks
 ## 📷 Hasil Uji
 
 ### 📸 Screenshot:
-![audit log.png](./screenshots/audit log.png
+![hasil audit log_output.png](./screenshoots/audit log_output.png)
 
 ### 📍 Contoh Output  `audit` saat dijalankan sebagai PID 1:
 
