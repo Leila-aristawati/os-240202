@@ -52,7 +52,10 @@ Program uji yang digunakan:
 
 ## 📷 Hasil Uji
 
-Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
+### 📸 Screenshot:
+![chmodtest.png](./screenshots/chmodtest.png
+### 📸 Screenshot:
+![randomtest.png](./screenshots/randomtest.png
 
 ### 📍 Contoh Output `chmodtest`:
 
