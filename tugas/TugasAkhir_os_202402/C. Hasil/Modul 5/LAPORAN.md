@@ -52,7 +52,7 @@ audit: untuk menguji system call get_audit_log() dan memastikan hanya bisa diaks
 [2] PID=1 SYSCALL=17 TICK=7
 [3] PID=1 SYSCALL=15 TICK=11
 [4] PID=1 SYSCALL=10 TICK=11
-[5] PID=1 SYSCALL=10 TICK=5
+[5] PID=1 SYSCALL=10 TICK=11
 [6] PID=1 SYSCALL=7 TICK=11
 [7] PID=1 SYSCALL=28 TICK=13
 ```
